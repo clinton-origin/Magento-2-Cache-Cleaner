@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Origin Digital
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the origin license that is
+ * available through the world-wide-web at this URL:
+ * https://www.origin.uk.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="origin" sortOrder="2001">
+            <label>Origin</label>
+        </tab>
+        <section id="origin_cachecleaner" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Clear Cache</label>
+            <tab>origin</tab>
+            <resource>Origin_Cachecleaner::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="origin_collect" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Origin\Cachecleaner\Block\System\Config\Collect</frontend_model>
+                    <label>This button will clear the redis cache</label>
+                </field>
+                <field id="origin_collect2" translate="label comment" type="button" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Origin\Cachecleaner\Block\System\Config\Collect2</frontend_model>
+                    <label>This button will clear the elastic search database</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

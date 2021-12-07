@@ -1,0 +1,69 @@
+<?php
+/**
+ * Origin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Origin.uk.com license that is
+ * available through the world-wide-web at this URL:
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ */
+?>
+<?php /* @var $block \Origin\Cachecleaner\Block\System\Config\Collect */ ?>
+
+<script>
+    require([
+        'jquery',
+        'prototype'
+    ], function(jQuery){
+
+        var collectSpan2 = jQuery('#collect_span2');
+
+        
+
+        jQuery('#collect_button2').click(function () {
+            var params = {};
+            new Ajax.Request('<?php echo $block->getAjaxUrl2() ?>', {
+                parameters:     params,
+                loaderArea:     false,
+                asynchronous:   true,
+                onCreate: function() {
+                    collectSpan2.find('.collected').hide();
+                    collectSpan2.find('.processing').show();
+                    jQuery('#collect_message_span2').text('');
+                },
+                onSuccess: function(response) {
+                    collectSpan2.find('.processing').hide();
+
+                    var resultText = '';
+                    if (response.status > 200) {
+                        resultText = response.statusText;
+                    } else {
+                        resultText = 'Success';
+                        collectSpan2.find('.collected').show();
+                    }
+                    jQuery('#collect_message_span2').text(resultText);
+
+                    var json = response.responseJSON;
+                    if (typeof json.time != 'undefined') {
+                        jQuery('#row_mageworx_alsobought_general_collect_time').find('.value .time').text(json.time);
+                    }
+                }
+            });
+        });
+
+
+    });
+</script>
+
+<?php echo $block->getButton2Html() ?>
+<span class="collect-indicator" id="collect_span2">
+    <img class="processing" hidden="hidden" alt="Collecting" style="margin:0 5px" src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+    <img class="collected" hidden="hidden" alt="Collected" style="margin:-3px 5px" src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
+    <span id="collect_message_span2"></span>
+</span>
